@@ -6,9 +6,9 @@ use Illuminate\Console\Command;
 
 class LaravelRouteStatisticsCommand extends Command
 {
-    public $signature = 'laravel-route-statistics';
+    public $signature = 'routestat';
 
-    public $description = 'My command';
+    public $description = 'Show route usage statistics';
 
     public function handle()
     {

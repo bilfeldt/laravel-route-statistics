@@ -5,9 +5,11 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/bilfeldt/laravel-route-statistics/Check%20&%20fix%20styling?label=code%20style)](https://github.com/bilfeldt/laravel-route-statistics/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/bilfeldt/laravel-route-statistics.svg?style=flat-square)](https://packagist.org/packages/bilfeldt/laravel-route-statistics)
 
-Log requests and group together for aggregated statistics of route usage. This package is usefull for getting insight into how is using the application (authenticated user or ip) and what aspects of the application they use.
+Log how often routes are requested for each user grouped by hours/day/month for easy to understand statistics.
 
-Grouping requests by route means that this package saves a minimum of data to the database and subsequent purging of old data can improve this even further.
+## Description
+
+Log requests and group them together for aggregated statistics of route usage. Grouping requests by route means that this package saves a minimum of data to the database and subsequent purging of old data can improve this even further.
 
 This package lets you:
 
