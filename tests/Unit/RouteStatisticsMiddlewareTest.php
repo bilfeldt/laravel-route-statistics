@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class RouteStatisticsMiddlewareTest extends TestCase
 {
     /** @test */
-    function it_adds_route_statistics_parameter()
+    public function it_adds_route_statistics_parameter()
     {
         // Given we have a request
         $request = new Request();
