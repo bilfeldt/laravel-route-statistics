@@ -1,12 +1,12 @@
 {
-    "name": "bilfeldt/laravel_route_statistics",
+    "name": "bilfeldt/laravel-route-statistics",
     "description": "This is my package LaravelRouteStatistics",
     "keywords": [
         "bilfeldt",
         "laravel",
         "laravel_route_statistics"
     ],
-    "homepage": "https://github.com/bilfeldt/laravel_route_statistics",
+    "homepage": "https://github.com/bilfeldt/laravel-route-statistics",
     "license": "MIT",
     "authors": [
         {
@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^7.4|^8.0",
         "spatie/laravel-package-tools": "^1.4.3",
         "illuminate/contracts": "^8.0"
     },

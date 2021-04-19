@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Spatie\\LaravelRouteStatistics\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Bilfeldt\\LaravelRouteStatistics\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
@@ -33,9 +33,7 @@ class TestCase extends Orchestra
             'prefix' => '',
         ]);
 
-        /*
-        include_once __DIR__.'/../database/migrations/create_laravel_route_statistics_table.php.stub';
-        (new \CreatePackageTable())->up();
-        */
+        include_once __DIR__.'/../database/migrations/create_route_statistics_table.php.stub';
+        (new \CreateRouteStatisticsTable())->up();
     }
 }

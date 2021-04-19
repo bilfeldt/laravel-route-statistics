@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 
 class LaravelRouteStatisticsCommand extends Command
 {
-    public $signature = 'laravel_route_statistics';
+    public $signature = 'laravel-route-statistics';
 
     public $description = 'My command';
 

@@ -11,6 +11,6 @@ class LaravelRouteStatisticsFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'laravel_route_statistics';
+        return LaravelRouteStatistics::class;
     }
 }

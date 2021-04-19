@@ -2,6 +2,11 @@
 
 namespace Bilfeldt\LaravelRouteStatistics;
 
+use Bilfeldt\LaravelRouteStatistics\Http\Middleware\RouteStatistics;
+use Bilfeldt\LaravelRouteStatistics\Listeners\LogRouteStatistics;
+use Illuminate\Foundation\Http\Events\RequestHandled;
+use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Event;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Bilfeldt\LaravelRouteStatistics\Commands\LaravelRouteStatisticsCommand;
@@ -16,10 +21,22 @@ class LaravelRouteStatisticsServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('laravel_route_statistics')
+            ->name('laravel-route-statistics')
             ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laravel_route_statistics_table')
+            ->hasMigration('create_route_statistics_table')
             ->hasCommand(LaravelRouteStatisticsCommand::class);
+    }
+
+    public function boot()
+    {
+        parent::boot();
+
+        $router = $this->app->make(Router::class);
+        $router->aliasMiddleware('routestats', RouteStatistics::class);
+
+        Event::listen(
+            RequestHandled::class,
+            [LogRouteStatistics::class, 'handle']
+        );
     }
 }
