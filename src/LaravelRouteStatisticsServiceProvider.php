@@ -2,9 +2,9 @@
 
 namespace Bilfeldt\LaravelRouteStatistics;
 
+use Bilfeldt\LaravelRouteStatistics\Commands\LaravelRouteStatisticsCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Bilfeldt\LaravelRouteStatistics\Commands\LaravelRouteStatisticsCommand;
 
 class LaravelRouteStatisticsServiceProvider extends PackageServiceProvider
 {
