@@ -47,20 +47,22 @@ class LaravelRouteStatisticsServiceProvider extends ServiceProvider
 
     private function mergeConfig()
     {
-        $path = $this->getConfigPath();
-        $this->mergeConfigFrom($path, 'route-statistics');
+        $this->mergeConfigFrom(__DIR__.'/../config/route-statistics.php', 'route-statistics');
     }
 
     private function publishConfig()
     {
-        $path = $this->getConfigPath();
-        $this->publishes([$path => config_path('route-statistics.php')], 'config');
+        $this->publishes([
+            __DIR__.'/../config/route-statistics.php' => config_path('route-statistics.php'),
+        ], 'config');
     }
 
     private function publishMigrations()
     {
-        $path = $this->getMigrationsPath();
-        $this->publishes([$path => database_path('migrations')], 'migrations');
+        $this->publishes([
+            __DIR__.'/../database/migrations/create_route_statistics_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_route_statistics_table.php'),
+          // you can add any number of migrations here
+        ], 'migrations');
     }
 
     private function bootCommands()
@@ -93,15 +95,5 @@ class LaravelRouteStatisticsServiceProvider extends ServiceProvider
                 'routeStatistics' => array_merge(['enabled' => true], $attributes),
             ]);
         });
-    }
-
-    private function getConfigPath()
-    {
-        return __DIR__ . '/../config/route-statistics.php';
-    }
-
-    private function getMigrationsPath()
-    {
-        return __DIR__ . '/../database/migrations/';
     }
 }

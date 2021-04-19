@@ -28,13 +28,13 @@ composer require bilfeldt/laravel-route-statistics
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --provider="Bilfeldt\LaravelRouteStatistics\LaravelRouteStatisticsServiceProvider" --tag="route-statistics-migrations"
+php artisan vendor:publish --provider="Bilfeldt\LaravelRouteStatistics\LaravelRouteStatisticsServiceProvider" --tag="migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 ```bash
-php artisan vendor:publish --provider="Bilfeldt\LaravelRouteStatistics\LaravelRouteStatisticsServiceProvider" --tag="route-statistics-config"
+php artisan vendor:publish --provider="Bilfeldt\LaravelRouteStatistics\LaravelRouteStatisticsServiceProvider" --tag="config"
 ```
 
 ## Usage
