@@ -2,7 +2,6 @@
 
 namespace Bilfeldt\LaravelRouteStatistics\Listeners;
 
-use Bilfeldt\LaravelRouteStatistics\Models\RouteStatistic;
 use Illuminate\Foundation\Http\Events\RequestHandled;
 
 class LogRouteStatistics
@@ -18,7 +17,7 @@ class LogRouteStatistics
         }
 
         if ($route = optional($event->request->route())->getName() ?? optional($event->request->route())->uri()) {
-            RouteStatistic::incrementOrCreate([
+            (config('route-statistics.model'))::incrementOrCreate([
                 'user_id' => optional($event->request->user())->id,
                 'method' => $event->request->getMethod(),
                 'route' => $route,

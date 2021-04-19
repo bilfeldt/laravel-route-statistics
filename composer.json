@@ -51,10 +51,7 @@
         "laravel": {
             "providers": [
                 "Bilfeldt\\LaravelRouteStatistics\\LaravelRouteStatisticsServiceProvider"
-            ],
-            "aliases": {
-                "LaravelRouteStatistics": "Bilfeldt\\LaravelRouteStatistics\\LaravelRouteStatisticsFacade"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",
