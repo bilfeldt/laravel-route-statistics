@@ -2,9 +2,9 @@
 
 namespace Bilfeldt\LaravelRouteStatistics\Tests;
 
+use Bilfeldt\LaravelRouteStatistics\LaravelRouteStatisticsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Bilfeldt\LaravelRouteStatistics\LaravelRouteStatisticsServiceProvider;
 
 class TestCase extends Orchestra
 {
