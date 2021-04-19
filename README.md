@@ -82,7 +82,7 @@ class Kernel extends HttpKernel
 Instead of adding the `RouteStatistics` middleware as a global middleware then it can be added to certain routes or route groups using:
 
 ```php
-Route::middleware([''])->...
+Route::middleware(['routestatistics'])->...
 ```
 
 ### Enable using request macro
