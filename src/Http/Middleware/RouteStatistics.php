@@ -15,11 +15,7 @@ class RouteStatistics
      */
     public function handle($request, Closure $next)
     {
-        $request->merge([
-            'routeStatistics' => [
-                'enabled' => true,
-            ],
-        ]);
+        $request->routeStatistics();
 
         return $next($request);
     }

@@ -5,11 +5,15 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/bilfeldt/laravel-route-statistics/Check%20&%20fix%20styling?label=code%20style)](https://github.com/bilfeldt/laravel-route-statistics/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/bilfeldt/laravel-route-statistics.svg?style=flat-square)](https://packagist.org/packages/bilfeldt/laravel-route-statistics)
 
-Log requests and group together for aggregated statistics of route usage. This package is usefull for logging:
+Log requests and group together for aggregated statistics of route usage. This package is usefull for getting insight into how is using the application (authenticated user or ip) and what aspects of the application they use.
 
-- Authenticated requests: We log the authenticated user
-- Unauthenticated requests: We log the IP - this is especially interesting to track scrapers or login attempts  
-- 3xx/4xx/5xx requests: It can be useful not only to log successful responses but also those resulting in errors
+Grouping requests by route means that this package saves a minimum of data to the database and subsequent purging of old data can improve this even further.
+
+This package lets you:
+
+- See how much each user uses the application and what part of the application they use
+- See if any unauthenticated users are making a lot of requests to your application
+
 
 ## Installation
 
@@ -31,18 +35,90 @@ You can publish the config file with:
 php artisan vendor:publish --provider="Bilfeldt\LaravelRouteStatistics\LaravelRouteStatisticsServiceProvider" --tag="route-statistics-config"
 ```
 
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
 ## Usage
 
+There are a few ways to enable logging of route usage:
+
+### Enable global logging
+
+This will enable site-wide logging and although being the easiest implementation this might not be what you are looking for.
+
+Simply add the `RouteStatistics` middleware as a global middleware in `app/Http/Kernel.php`
+
 ```php
-$laravel_route_statistics = new Bilfeldt\LaravelRouteStatistics();
-echo $laravel_route_statistics->echoPhrase('Hello, Spatie!');
+// app/Http/Kernel.php
+<?php
+
+namespace App\Http;
+
+use Illuminate\Foundation\Http\Kernel as HttpKernel;
+
+class Kernel extends HttpKernel
+{
+    /**
+     * The application's global HTTP middleware stack.
+     *
+     * These middleware are run during every request to your application.
+     *
+     * @var array
+     */
+    protected $middleware = [
+        \Bilfeldt\LaravelRouteStatistics\Http\Middleware\RouteStatistics::class, // <-- Added
+        // \App\Http\Middleware\TrustHosts::class,
+        \App\Http\Middleware\TrustProxies::class,
+        \Fruitcake\Cors\HandleCors::class,
+        \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
+        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
+        \App\Http\Middleware\TrimStrings::class,
+        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+    ];
+...
+```
+
+### Enable for route groups
+
+Instead of adding the `RouteStatistics` middleware as a global middleware then it can be added to certain routes or route groups using:
+
+```php
+Route::middleware([''])->...
+```
+
+### Enable using request macro
+
+It is possible to enable logging ad-hoc, usually within a controller
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class HomeController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index(Request $request)
+    {
+        $request->routeStatistics(['extra' => '123']); // This will enable route statistics logging and add some data that could be used when logging
+    
+        return view('home');
+    }
+}
+
 ```
 
 ## How it works
