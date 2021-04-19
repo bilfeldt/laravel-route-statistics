@@ -1,6 +1,6 @@
 <?php
 
-namespace VendorName\Skeleton\Tests;
+namespace Bilfeldt\LaravelRouteStatistics\Tests;
 
 class ExampleTest extends TestCase
 {

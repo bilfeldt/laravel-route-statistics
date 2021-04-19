@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Bilfeldt\LaravelRouteStatistics\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class LaravelRouteStatisticsCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel_route_statistics';
 
     public $description = 'My command';
 

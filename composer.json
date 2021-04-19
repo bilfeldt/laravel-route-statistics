@@ -1,17 +1,17 @@
 {
-    "name": "vendor_slug/package_slug",
-    "description": ":package_description",
+    "name": "bilfeldt/laravel_route_statistics",
+    "description": "This is my package LaravelRouteStatistics",
     "keywords": [
-        ":vendor_name",
+        "bilfeldt",
         "laravel",
-        "package_slug"
+        "laravel_route_statistics"
     ],
-    "homepage": "https://github.com/vendor_slug/package_slug",
+    "homepage": "https://github.com/bilfeldt/laravel_route_statistics",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Anders Bilfeldt",
+            "email": "abilfeldt@gmail.com",
             "role": "Developer"
         }
     ],
@@ -30,13 +30,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Bilfeldt\\LaravelRouteStatistics\\": "src",
+            "Bilfeldt\\LaravelRouteStatistics\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Bilfeldt\\LaravelRouteStatistics\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -50,10 +50,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Bilfeldt\\LaravelRouteStatistics\\LaravelRouteStatisticsServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\SkeletonFacade"
+                "LaravelRouteStatistics": "Bilfeldt\\LaravelRouteStatistics\\LaravelRouteStatisticsFacade"
             }
         }
     },
