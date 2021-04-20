@@ -2,29 +2,38 @@
 
 namespace Bilfeldt\LaravelRouteStatistics\Listeners;
 
+use Bilfeldt\LaravelRouteStatistics\Facades\LaravelRouteStatisticsFacade;
+use Bilfeldt\LaravelRouteStatistics\LaravelRouteStatistics;
 use Illuminate\Foundation\Http\Events\RequestHandled;
 
 class LogRouteStatistics
 {
+    protected $laravelRouteStatistics;
+
+    public function __construct(LaravelRouteStatistics $laravelRouteStatistics)
+    {
+        $this->laravelRouteStatistics;
+    }
+
     public function handle(RequestHandled $event)
     {
         if (! config('route-statistics.enabled')) {
             return;
         }
 
-        if (! $event->request->input('routeStatistics.enabled')) {
+        if (! LaravelRouteStatisticsFacade::isEnabled()) {
             return;
         }
 
         if ($route = optional($event->request->route())->getName() ?? optional($event->request->route())->uri()) {
-            (config('route-statistics.model'))::incrementOrCreate([
+            (config('route-statistics.model'))::incrementOrCreate(array_merge([
                 'user_id' => optional($event->request->user())->id,
                 'method' => $event->request->getMethod(),
                 'route' => $route,
                 'code' => $event->response->status(),
                 'ip' => $event->request->ip(),
                 'date' => $this->getDate(),
-            ]);
+            ], LaravelRouteStatisticsFacade::getAttributes()));
         }
     }
 
