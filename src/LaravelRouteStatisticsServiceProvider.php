@@ -3,6 +3,7 @@
 namespace Bilfeldt\LaravelRouteStatistics;
 
 use Bilfeldt\LaravelRouteStatistics\Commands\LaravelRouteStatisticsCommand;
+use Bilfeldt\LaravelRouteStatistics\Facades\LaravelRouteStatisticsFacade;
 use Bilfeldt\LaravelRouteStatistics\Http\Middleware\RouteStatistics;
 use Bilfeldt\LaravelRouteStatistics\Listeners\LogRouteStatistics;
 use Illuminate\Foundation\Http\Events\RequestHandled;
@@ -13,6 +14,15 @@ use Illuminate\Support\ServiceProvider;
 
 class LaravelRouteStatisticsServiceProvider extends ServiceProvider
 {
+    /**
+     * All of the container singletons that should be registered.
+     *
+     * @var array
+     */
+    public $singletons = [
+        LaravelRouteStatisticsFacade::class => LaravelRouteStatistics::class,
+    ];
+
     /*
     public function configurePackage(Package $package): void
     {
@@ -91,9 +101,9 @@ class LaravelRouteStatisticsServiceProvider extends ServiceProvider
     private function bootMacros()
     {
         Request::macro('routeStatistics', function (array $attributes = []) {
-            return $this->merge([
-                'routeStatistics' => array_merge(['enabled' => true], $attributes),
-            ]);
+            LaravelRouteStatisticsFacade::enable()->mergeAttributes($attributes);
+
+            return $this;
         });
     }
 }

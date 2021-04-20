@@ -2,6 +2,7 @@
 
 namespace Bilfeldt\LaravelRouteStatistics\Tests\Unit;
 
+use Bilfeldt\LaravelRouteStatistics\Facades\LaravelRouteStatisticsFacade;
 use Bilfeldt\LaravelRouteStatistics\Http\Middleware\RouteStatistics;
 use Bilfeldt\LaravelRouteStatistics\Tests\TestCase;
 use Illuminate\Http\Request;
@@ -9,18 +10,17 @@ use Illuminate\Http\Request;
 class RouteStatisticsMiddlewareTest extends TestCase
 {
     /** @test */
-    public function it_adds_route_statistics_parameter()
+    public function test_enables_route_statistics_pre_stream()
     {
-        // Given we have a request
         $request = new Request();
+        $stats = LaravelRouteStatisticsFacade::disable();
+
+        $this->assertFalse($stats->isEnabled());
 
         // when we pass the request to this middleware,
         // it should've have added a new parameter 'routeStatistics'
-        (new RouteStatistics())->handle($request, function ($request) {
-            ray($request->input());
-            $this->assertIsArray($request->input('routeStatistics'));
-            $this->assertArrayHasKey('enabled', $request->input('routeStatistics'));
-            $this->assertTrue($request->input('routeStatistics')['enabled']);
+        (new RouteStatistics())->handle($request, function ($request) use ($stats) {
+            $this->assertTrue($stats->isEnabled());
         });
     }
 }
