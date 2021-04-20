@@ -50,5 +50,4 @@ class LaravelRouteStatisticsTest extends TestCase
         $this->assertCount(2, $this->class->getAttributes());
         $this->assertEquals(['test3' => 'C', 'test4' => 'D'], $this->class->getAttributes());
     }
-
 }
