@@ -9,6 +9,11 @@ class CreateRouteStatisticsTable extends Migration
     public function up()
     {
         Schema::create('route_statistics', function (Blueprint $table) {
+            // For pre Laravel 7 versions use the code below:
+            // $table->bigIncrements('id');
+            // $table->integer('user_id')->unsigned()->nullable();
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained();
             $table->text('method');
