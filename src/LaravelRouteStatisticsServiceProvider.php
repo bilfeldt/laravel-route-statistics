@@ -92,10 +92,7 @@ class LaravelRouteStatisticsServiceProvider extends ServiceProvider
 
     private function bootEventListeners()
     {
-        Event::listen(
-            RequestHandled::class,
-            [LogRouteStatistics::class, 'handle']
-        );
+        Event::listen(RequestHandled::class, LogRouteStatistics::class);
     }
 
     private function bootMacros()
