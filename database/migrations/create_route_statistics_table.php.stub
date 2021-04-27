@@ -16,9 +16,9 @@ class CreateRouteStatisticsTable extends Migration
 
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained();
-            $table->text('method');
-            $table->text('route');
-            $table->integer('code');
+            $table->text('method')->nullable();
+            $table->text('route')->nullable();
+            $table->integer('code')->nullable();
             $table->ipAddress('ip')->nullable();
             $table->dateTime('date');
             $table->unsignedInteger('counter');
