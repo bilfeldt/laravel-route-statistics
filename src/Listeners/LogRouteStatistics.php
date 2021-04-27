@@ -3,18 +3,10 @@
 namespace Bilfeldt\LaravelRouteStatistics\Listeners;
 
 use Bilfeldt\LaravelRouteStatistics\Facades\LaravelRouteStatisticsFacade;
-use Bilfeldt\LaravelRouteStatistics\LaravelRouteStatistics;
 use Illuminate\Foundation\Http\Events\RequestHandled;
 
 class LogRouteStatistics
 {
-    protected $laravelRouteStatistics;
-
-    public function __construct(LaravelRouteStatistics $laravelRouteStatistics)
-    {
-        $this->laravelRouteStatistics;
-    }
-
     public function handle(RequestHandled $event)
     {
         if (! config('route-statistics.enabled')) {
@@ -26,7 +18,8 @@ class LogRouteStatistics
         }
 
         if ($route = optional($event->request->route())->getName() ?? optional($event->request->route())->uri()) {
-            (config('route-statistics.model'))::incrementOrCreate(array_merge([
+            $model = config('route-statistics.model');
+            $model::incrementOrCreate(array_merge([
                 'user_id' => optional($event->request->user())->id,
                 'method' => $event->request->getMethod(),
                 'route' => $route,
