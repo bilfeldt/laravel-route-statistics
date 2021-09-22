@@ -1,11 +1,11 @@
-# Log Laravel requests and group together for aggregated route usage statistics
+# Log Laravel route usage statistics
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/bilfeldt/laravel-route-statistics.svg?style=flat-square)](https://packagist.org/packages/bilfeldt/laravel-route-statistics)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/bilfeldt/laravel-route-statistics/run-tests?label=tests)](https://github.com/bilfeldt/laravel-route-statistics/actions?query=workflow%3Arun-tests+branch%3Amaster)
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/bilfeldt/laravel-route-statistics/Check%20&%20fix%20styling?label=code%20style)](https://github.com/bilfeldt/laravel-route-statistics/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/bilfeldt/laravel-route-statistics.svg?style=flat-square)](https://packagist.org/packages/bilfeldt/laravel-route-statistics)
 
-Log how often routes are requested for each user grouped by hours/day/month for easy to understand statistics.
+Log Laravel requests for statistical purposes and optionally aggregate by hours/days/months for minimal db requirements.
 
 ## Description
 
@@ -43,7 +43,7 @@ There are a few ways to enable logging of route usage:
 
 ### Enable global logging
 
-This will enable site-wide logging and although being the easiest implementation this might not be what you are looking for.
+This will enable site-wide logging and although being the easiest implementation this might not be exactly what you are looking for (consider only logging relevant routes using the [middleware](#enable-via-middleware) approach below)
 
 Simply add the `RouteStatistics` middleware as a global middleware in `app/Http/Kernel.php`
 
@@ -77,7 +77,7 @@ class Kernel extends HttpKernel
 ...
 ```
 
-### Enable for route groups
+### Enable via middleware
 
 Instead of adding the `RouteStatistics` middleware as a global middleware then it can be added to certain routes or route groups using:
 
@@ -87,7 +87,7 @@ Route::middleware(['routestatistics'])->...
 
 ### Enable using request macro
 
-It is possible to enable logging ad-hoc, usually within a controller
+It is possible to enable logging ad-hoc, usually within a controller, which is useful for any conditional logging:
 
 ```php
 <?php
@@ -127,8 +127,15 @@ class HomeController extends Controller
 
 This package works as follows:
 1. Tag the request for logging: Can be done using middleware or request helper
-2. (optional) Add any context data which will be used when logging: A common use case is adding relevant route parameters 
-3. Log the request: Persist the log record to the database
+2. (optional) Add any context data which will be used when logging: A common use case is adding relevant route parameters like a `team_id` for example
+3. Log the request: Persist the log record to the database - using the default logger this will be logged:
+  - `user_id` (id of authenticated user)
+  - `method`
+  - `route`
+  - `status`
+  - `ip`
+  - `date`
+  - `counter` (default=1 but can be used when aggregating records by minute/hour/day/month...)
 
 ## Testing
 
