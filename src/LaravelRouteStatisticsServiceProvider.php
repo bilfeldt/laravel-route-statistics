@@ -58,8 +58,8 @@ class LaravelRouteStatisticsServiceProvider extends ServiceProvider
     private function publishMigrations()
     {
         $this->publishes([
-            __DIR__.'/../database/migrations/create_route_statistics_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_route_statistics_table.php'),
-          // you can add any number of migrations here
+            __DIR__.'/../database/migrations/create_route_statistics_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_route_statistics_table.php'),
+            // you can add any number of migrations here
         ], 'migrations');
     }
 
@@ -94,7 +94,7 @@ class LaravelRouteStatisticsServiceProvider extends ServiceProvider
         RequestLoggerFacade::extend('routestat', function ($app) {
             $model = config('route-statistics.model');
 
-            return new $model;
+            return new $model();
         });
     }
 }
