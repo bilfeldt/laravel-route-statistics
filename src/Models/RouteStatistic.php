@@ -82,7 +82,7 @@ class RouteStatistic extends Model implements RequestLoggerInterface
         $date = Date::now();
         $aggregate = config('route-statistics.aggregate');
 
-        if ($aggregate && !in_array($aggregate, ['YEAR', 'MONTH', 'DAY', 'HOUR', 'MINUTE'])) {
+        if ($aggregate && ! in_array($aggregate, ['YEAR', 'MONTH', 'DAY', 'HOUR', 'MINUTE'])) {
             throw new \OutOfBoundsException('Invalid date aggregation');
         }
 
