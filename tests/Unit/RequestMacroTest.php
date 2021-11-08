@@ -2,7 +2,6 @@
 
 namespace Bilfeldt\LaravelRouteStatistics\Tests\Unit;
 
-use Bilfeldt\LaravelRouteStatistics\Facades\LaravelRouteStatisticsFacade;
 use Bilfeldt\LaravelRouteStatistics\Tests\TestCase;
 use Illuminate\Http\Request;
 
