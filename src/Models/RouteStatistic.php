@@ -57,7 +57,7 @@ class RouteStatistic extends Model implements RequestLoggerInterface
                 'team_id' => optional($this->getRequestTeam($request))->getKey(),
                 'method' => $request->getMethod(),
                 'route' => $route,
-                'code' => $response->status(),
+                'code' => $response->getStatusCode(),
                 'ip' => $request->ip(),
                 'date' => $this->getDate(),
             ], ['counter' => 0])->increment('counter', 1);
