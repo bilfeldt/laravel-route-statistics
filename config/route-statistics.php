@@ -28,10 +28,10 @@ return [
     | Model
     |--------------------------------------------------------------------------
     |
-    | This is the model we use to store request usage.
+    | This is the model used to store request statistics.
     | It is possible to implement a custom model which extends the default model
     | or alternatively implement a completely new model which implements
-    | Bilfeldt\LaravelRouteStatistics\Contracts\RouteStatisticInterface
+    | Bilfeldt\RequestLogger\Contracts\RequestLoggerInterface
     |
     */
     'model' => env('ROUTE_STATISTICS_MODEL', \Bilfeldt\LaravelRouteStatistics\Models\RouteStatistic::class),

@@ -4,8 +4,10 @@ namespace Bilfeldt\LaravelRouteStatistics\Http\Middleware;
 
 use Closure;
 
-class RouteStatistics
+class RouteStatisticsMiddleware
 {
+    const ALIAS = 'routestatistics';
+
     /**
      * Handle an incoming request.
      *

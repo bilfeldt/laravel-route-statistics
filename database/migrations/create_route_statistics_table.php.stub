@@ -4,24 +4,24 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRouteStatisticsTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
         Schema::create('route_statistics', function (Blueprint $table) {
-            // For pre Laravel 7 versions use the code below:
-            // $table->bigIncrements('id');
-            // $table->integer('user_id')->unsigned()->nullable();
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained();
-            $table->text('method')->nullable();
-            $table->text('route')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->unsignedBigInteger('team_id')->nullable(); // Can be changed to the following if your application uses teams: $table->foreignId('team_id')->nullable()->constrained();
+            $table->string('method')->nullable();
+            $table->string('route')->nullable();
             $table->integer('code')->nullable();
             $table->ipAddress('ip')->nullable();
             $table->dateTime('date');
             $table->unsignedInteger('counter');
+
+            $table->index('date');
+            $table->index(['user_id', 'date', 'route', 'method']);
+            $table->index(['route', 'method', 'date']);
         });
     }
 
@@ -29,4 +29,4 @@ class CreateRouteStatisticsTable extends Migration
     {
         Schema::dropIfExists('route_statistics');
     }
-}
+};

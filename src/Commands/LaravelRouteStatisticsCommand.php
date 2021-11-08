@@ -6,12 +6,14 @@ use Illuminate\Console\Command;
 
 class LaravelRouteStatisticsCommand extends Command
 {
-    public $signature = 'routestat';
+    public $signature = 'route:stats';
 
     public $description = 'Show route usage statistics';
 
     public function handle()
     {
+
+
         $this->comment('All done');
     }
 }

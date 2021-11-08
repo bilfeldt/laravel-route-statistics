@@ -2,6 +2,13 @@
 
 All notable changes to `laravel-route-statistics` will be documented in this file.
 
+## 0.4.0
+
+- Remove the facade and listener and instead rely on the `bilfeldt/laravel-request-logger` package for actual logging.
+- Remove `RouteStatisticInterface` in favor of `\Bilfeldt\RequestLogger\Contracts\RequestLoggerInterface`
+- Remove attributes from log method
+- Note that this release contains breaking changes if one interacting with the facade, model, listener or interface directly but for those simply relying on the default macros and middleware there is no problem updating.
+
 ## 0.3.0
 
 - Fix issue with Factory
