@@ -12,8 +12,6 @@ class LaravelRouteStatisticsCommand extends Command
 
     public function handle()
     {
-
-
         $this->comment('All done');
     }
 }

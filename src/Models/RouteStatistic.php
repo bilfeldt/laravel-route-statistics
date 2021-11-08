@@ -55,11 +55,11 @@ class RouteStatistic extends Model implements RequestLoggerInterface
             static::firstOrCreate([
                 'user_id' => optional($request->user())->getKey(),
                 'team_id' => optional($this->getRequestTeam($request))->getKey(),
-                'method' => $request->getMethod(),
-                'route' => $route,
-                'code' => $response->getStatusCode(),
-                'ip' => $request->ip(),
-                'date' => $this->getDate(),
+                'method'  => $request->getMethod(),
+                'route'   => $route,
+                'code'    => $response->getStatusCode(),
+                'ip'      => $request->ip(),
+                'date'    => $this->getDate(),
             ], ['counter' => 0])->increment('counter', 1);
         }
     }
@@ -82,7 +82,7 @@ class RouteStatistic extends Model implements RequestLoggerInterface
         $date = Date::now();
         $aggregate = config('route-statistics.aggregate');
 
-        if ($aggregate && ! in_array($aggregate, ['YEAR', 'MONTH', 'DAY', 'HOUR', 'MINUTE'])) {
+        if ($aggregate && !in_array($aggregate, ['YEAR', 'MONTH', 'DAY', 'HOUR', 'MINUTE'])) {
             throw new \OutOfBoundsException('Invalid date aggregation');
         }
 
