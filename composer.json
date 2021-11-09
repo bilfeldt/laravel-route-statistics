@@ -1,10 +1,11 @@
 {
     "name": "bilfeldt/laravel-route-statistics",
-    "description": "This is my package LaravelRouteStatistics",
+    "description": "Log statistics about route usage per user/team",
     "keywords": [
         "bilfeldt",
         "laravel",
-        "laravel_route_statistics"
+        "route",
+        "statistics"
     ],
     "homepage": "https://github.com/bilfeldt/laravel-route-statistics",
     "license": "MIT",
@@ -16,8 +17,9 @@
         }
     ],
     "require": {
-        "php": "^7.2|^8.0",
-        "illuminate/contracts": "^5.8|^6.0|^7.0|^8.0"
+        "php": "^7.4|^8.0",
+        "bilfeldt/laravel-request-logger": "^0.3",
+        "illuminate/contracts": "^8.50"
     },
     "require-dev": {
         "brianium/paratest": "^6.2",
@@ -50,10 +52,7 @@
         "laravel": {
             "providers": [
                 "Bilfeldt\\LaravelRouteStatistics\\LaravelRouteStatisticsServiceProvider"
-            ],
-            "aliases": {
-                "RouteStatistics": "Bilfeldt\\LaravelRouteStatistics\\Facades\\LaravelRouteStatisticsFacade"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",

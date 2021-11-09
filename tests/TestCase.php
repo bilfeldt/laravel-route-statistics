@@ -3,6 +3,7 @@
 namespace Bilfeldt\LaravelRouteStatistics\Tests;
 
 use Bilfeldt\LaravelRouteStatistics\LaravelRouteStatisticsServiceProvider;
+use Bilfeldt\RequestLogger\RequestLoggerServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -20,6 +21,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
+            RequestLoggerServiceProvider::class,
             LaravelRouteStatisticsServiceProvider::class,
         ];
     }
@@ -28,12 +30,12 @@ class TestCase extends Orchestra
     {
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
-            'driver' => 'sqlite',
+            'driver'   => 'sqlite',
             'database' => ':memory:',
-            'prefix' => '',
+            'prefix'   => '',
         ]);
 
-        include_once __DIR__.'/../database/migrations/create_route_statistics_table.php.stub';
-        (new \CreateRouteStatisticsTable())->up();
+        $migration = include __DIR__.'/../database/migrations/create_route_statistics_table.php.stub';
+        $migration->up();
     }
 }

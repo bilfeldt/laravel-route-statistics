@@ -5,7 +5,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/bilfeldt/laravel-route-statistics/Check%20&%20fix%20styling?label=code%20style)](https://github.com/bilfeldt/laravel-route-statistics/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/bilfeldt/laravel-route-statistics.svg?style=flat-square)](https://packagist.org/packages/bilfeldt/laravel-route-statistics)
 
-Log Laravel requests for statistical purposes and optionally aggregate by hours/days/months for minimal db requirements.
+Log Laravel requests and responses for statistical purposes and optionally aggregate by hours/days/months for minimal db requirements.
 
 ## Description
 
@@ -65,7 +65,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        \Bilfeldt\LaravelRouteStatistics\Http\Middleware\RouteStatistics::class, // <-- Added
+        \Bilfeldt\LaravelRouteStatistics\Http\Middleware\RouteStatisticsMiddleware::class, // <-- Added
         // \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
         \Fruitcake\Cors\HandleCors::class,
@@ -115,12 +115,11 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $request->routeStatistics(['extra' => '123']); // This will enable route statistics logging and add some data that could be used when logging
+        $request->routeStatistics(); // This will enable route statistics logging
     
         return view('home');
     }
 }
-
 ```
 
 ## How it works
@@ -130,6 +129,7 @@ This package works as follows:
 2. (optional) Add any context data which will be used when logging: A common use case is adding relevant route parameters like a `team_id` for example
 3. Log the request: Persist the log record to the database - using the default logger this will be logged:
   - `user_id` (id of authenticated user)
+  - `team_id` (id of users team)
   - `method`
   - `route`
   - `status`

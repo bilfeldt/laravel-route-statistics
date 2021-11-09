@@ -3,26 +3,14 @@
 namespace Bilfeldt\LaravelRouteStatistics;
 
 use Bilfeldt\LaravelRouteStatistics\Commands\LaravelRouteStatisticsCommand;
-use Bilfeldt\LaravelRouteStatistics\Facades\LaravelRouteStatisticsFacade;
-use Bilfeldt\LaravelRouteStatistics\Http\Middleware\RouteStatistics;
-use Bilfeldt\LaravelRouteStatistics\Listeners\LogRouteStatistics;
-use Illuminate\Foundation\Http\Events\RequestHandled;
+use Bilfeldt\LaravelRouteStatistics\Http\Middleware\RouteStatisticsMiddleware;
+use Bilfeldt\RequestLogger\RequestLoggerFacade;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelRouteStatisticsServiceProvider extends ServiceProvider
 {
-    /**
-     * All of the container singletons that should be registered.
-     *
-     * @var array
-     */
-    public $singletons = [
-        LaravelRouteStatisticsFacade::class => LaravelRouteStatistics::class,
-    ];
-
     /*
     public function configurePackage(Package $package): void
     {
@@ -50,9 +38,9 @@ class LaravelRouteStatisticsServiceProvider extends ServiceProvider
         $this->publishMigrations();
 
         $this->bootMiddleware();
-        $this->bootEventListeners();
         $this->bootMacros();
         $this->bootCommands();
+        $this->bootLogger();
     }
 
     private function mergeConfig()
@@ -70,8 +58,8 @@ class LaravelRouteStatisticsServiceProvider extends ServiceProvider
     private function publishMigrations()
     {
         $this->publishes([
-            __DIR__.'/../database/migrations/create_route_statistics_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_route_statistics_table.php'),
-          // you can add any number of migrations here
+            __DIR__.'/../database/migrations/create_route_statistics_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_route_statistics_table.php'),
+            // you can add any number of migrations here
         ], 'migrations');
     }
 
@@ -87,20 +75,26 @@ class LaravelRouteStatisticsServiceProvider extends ServiceProvider
     private function bootMiddleware()
     {
         $router = $this->app->make(Router::class);
-        $router->aliasMiddleware('routestatistics', RouteStatistics::class);
-    }
-
-    private function bootEventListeners()
-    {
-        Event::listen(RequestHandled::class, LogRouteStatistics::class);
+        $router->aliasMiddleware(RouteStatisticsMiddleware::ALIAS, RouteStatisticsMiddleware::class);
     }
 
     private function bootMacros()
     {
-        Request::macro('routeStatistics', function (array $attributes = []) {
-            LaravelRouteStatisticsFacade::enable()->mergeAttributes($attributes);
+        Request::macro('routeStatistics', function () {
+            if (config('route-statistics.enabled')) {
+                $this->enableLog('routestat');
+            }
 
             return $this;
+        });
+    }
+
+    private function bootLogger()
+    {
+        RequestLoggerFacade::extend('routestat', function ($app) {
+            $model = config('route-statistics.model');
+
+            return new $model();
         });
     }
 }
