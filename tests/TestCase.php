@@ -3,6 +3,7 @@
 namespace Bilfeldt\LaravelRouteStatistics\Tests;
 
 use Bilfeldt\LaravelRouteStatistics\LaravelRouteStatisticsServiceProvider;
+use Bilfeldt\RequestLogger\RequestLoggerServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -20,6 +21,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
+            RequestLoggerServiceProvider::class,
             LaravelRouteStatisticsServiceProvider::class,
         ];
     }
