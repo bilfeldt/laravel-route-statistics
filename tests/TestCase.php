@@ -33,7 +33,7 @@ class TestCase extends Orchestra
             'prefix'   => '',
         ]);
 
-        include_once __DIR__.'/../database/migrations/create_route_statistics_table.php.stub';
-        (new \CreateRouteStatisticsTable())->up();
+        $migration = include __DIR__.'/../database/migrations/create_route_statistics_table.php.stub';
+        $migration->up();
     }
 }
