@@ -14,7 +14,7 @@ return new class extends Migration
             $table->unsignedBigInteger('team_id')->nullable(); // Can be changed to the following if your application uses teams: $table->foreignId('team_id')->nullable()->constrained();
             $table->string('method')->nullable();
             $table->string('route')->nullable();
-            $table->integer('code')->nullable();
+            $table->integer('status')->nullable();
             $table->ipAddress('ip')->nullable();
             $table->dateTime('date');
             $table->unsignedInteger('counter');
