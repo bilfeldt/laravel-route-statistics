@@ -21,6 +21,7 @@ return new class extends Migration
 
             $table->index('date');
             $table->index(['user_id', 'date', 'route', 'method']);
+            $table->index(['team_id', 'date', 'route', 'method']);
             $table->index(['route', 'method', 'date']);
         });
     }
