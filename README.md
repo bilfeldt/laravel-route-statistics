@@ -4,7 +4,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/bilfeldt/laravel-route-statistics.svg?style=flat-square)](https://packagist.org/packages/bilfeldt/laravel-route-statistics)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/bilfeldt/laravel-route-statistics/run-tests?label=tests)](https://github.com/bilfeldt/laravel-route-statistics/actions?query=workflow%3Arun-tests+branch%3Amaster)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/bilfeldt/laravel-route-statistics/Check%20&%20fix%20styling?label=code%20style)](https://github.com/bilfeldt/laravel-route-statistics/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
+[![StyleCI Code Style Status](https://github.styleci.io/repos/359116376/shield)](https://github.styleci.io/repos/359116376/shield)
 [![Total Downloads](https://img.shields.io/packagist/dt/bilfeldt/laravel-route-statistics.svg?style=flat-square)](https://packagist.org/packages/bilfeldt/laravel-route-statistics)
 
 Log Laravel requests and responses for statistical purposes and optionally aggregate by hours/days/months for minimal db requirements.
