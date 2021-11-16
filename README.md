@@ -47,7 +47,7 @@ There are a few ways to enable logging of route usage:
 
 This will enable site-wide logging and although being the easiest implementation this might not be exactly what you are looking for (consider only logging relevant routes using the [middleware](#enable-via-middleware) approach below)
 
-Simply add the `RouteStatistics` middleware as a global middleware in `app/Http/Kernel.php`
+Simply add `RouteStatisticsMiddleware` as a global middleware in `app/Http/Kernel.php`
 
 ```php
 // app/Http/Kernel.php
@@ -81,7 +81,7 @@ class Kernel extends HttpKernel
 
 ### Enable via middleware
 
-Instead of adding the `RouteStatistics` middleware as a global middleware then it can be added to certain routes or route groups using:
+Instead of adding `RouteStatisticsMiddleware` as a global middleware then it can be added to certain routes or route groups using:
 
 ```php
 Route::middleware(['routestatistics'])->...
