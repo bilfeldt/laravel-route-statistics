@@ -129,15 +129,15 @@ class HomeController extends Controller
 This package works as follows:
 1. Tag the request for logging: Can be done using middleware or request helper
 2. (optional) Add any context data which will be used when logging: A common use case is adding relevant route parameters like a `team_id` for example
-3. Log the request: Persist the log record to the database - using the default logger this will be logged:
-  - `user_id` (id of authenticated user)
-  - `team_id` (id of users team)
-  - `method`
-  - `route`
-  - `status`
-  - `ip`
-  - `date`
-  - `counter` (default=1 but can be used when aggregating records by minute/hour/day/month...)
+3. Log the request: Persist the log record to the database - the following will be logged when using the default logger:
+  - `user_id`: The authenticated user (if any)
+  - `team_id`: The team id associated with the request (if available)
+  - `method`: The HTTP method (`GET/POST/...`)
+  - `route`: The route name (if available) or the route URI (eg `/posts/{post}`)
+  - `status`: The HTTP status (eg `202`)
+  - `ip`: The request ip
+  - `date`: The date of the request as datetime (can be aggregated)
+  - `counter`: Number of requests logged when aggregating records by minute/hour/day/month...
 
 ## Testing
 
