@@ -3,6 +3,7 @@
 namespace Bilfeldt\LaravelRouteStatistics\Models;
 
 use Bilfeldt\RequestLogger\Contracts\RequestLoggerInterface;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -34,6 +35,16 @@ class RouteStatistic extends Model implements RequestLoggerInterface
     //======================================================================
     // SCOPES
     //======================================================================
+
+    public function scopeWhereApi(Builder $query): Builder
+    {
+        return $query->where('route', 'LIKE', 'api.%');
+    }
+
+    public function scopeWhereWeb(Builder $query): Builder
+    {
+        return $query->where('route', 'NOT LIKE', 'api.%');
+    }
 
     //======================================================================
     // RELATIONS

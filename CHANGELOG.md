@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-route-statistics` will be documented in this file.
 
+## 1.1.0
+
+- Add query scopes `whereApi` and `whereWeb` to the `RouteStatistics` model.
+
 ## 1.0.0
 
 - First production ready release
