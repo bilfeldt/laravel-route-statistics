@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-route-statistics` will be documented in this file.
 
+## 1.2.0
+
+- Add a new `route:stats` artisan command to show statistics of all logged routes.
+
 ## 1.1.0
 
 - Add query scopes `whereApi` and `whereWeb` to the `RouteStatistics` model.
