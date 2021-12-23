@@ -5,6 +5,7 @@ All notable changes to `laravel-route-statistics` will be documented in this fil
 ## 1.2.0
 
 - Add a new `route:stats` artisan command to show statistics of all logged routes.
+- Add a new `route:unused` artisan command to show all routes without any logs.
 
 ## 1.1.0
 

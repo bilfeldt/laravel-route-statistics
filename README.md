@@ -124,6 +124,13 @@ class HomeController extends Controller
 }
 ```
 
+## Artisan commands
+
+This package comes with two neat Artisan commands:
+
+- `route:stats`: An easy way to see route statistics for certain relevant routes.
+- `route:unused`: A neat way to list the routes without any logs. Be aware that the routes should also be logged for this to be useful.
+
 ## How it works
 
 This package works as follows:
