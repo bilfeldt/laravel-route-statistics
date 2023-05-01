@@ -23,7 +23,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "bilfeldt/laravel-request-logger": "*",
+        "bilfeldt/laravel-request-logger": "^2.0",
         "illuminate/contracts": "^10.0",
         "laravel/framework": "^10.0"
     },
@@ -46,12 +46,6 @@
             "Bilfeldt\\LaravelRouteStatistics\\Tests\\": "tests"
         }
     },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "/Users/jeremias/Code/laravel-request-logger"
-        }
-    ],
     "scripts": {
         "psalm": "vendor/bin/psalm",
         "test": "./vendor/bin/testbench package:test --parallel --no-coverage",
