@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "php": "^8.2",
+        "php": "~8.2.0",
         "bilfeldt/laravel-request-logger": "^2.0",
         "illuminate/contracts": "^10.0",
         "laravel/framework": "^10.0"

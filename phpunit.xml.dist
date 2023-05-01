@@ -15,7 +15,7 @@
     cacheDirectory=".phpunit.cache"
     backupStaticProperties="false">
   <testsuites>
-    <testsuite name="Bilfeldt Test Suite">
+    <testsuite name="Test Suite">
       <directory>tests</directory>
     </testsuite>
   </testsuites>
