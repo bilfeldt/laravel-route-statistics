@@ -4,6 +4,13 @@ All notable changes to `laravel-route-statistics` will be documented in this fil
 
 ## Development
 
+### 2.0.0
+
+- Minimum PHP requirement 8.1
+- Add support for PHP 8.2
+- Minimum Laravel requirement 9.0
+- Add support for Laravel 10.*
+
 ## 1.1.0
 
 - Add query scopes `whereApi` and `whereWeb` to the `RouteStatistics` model.

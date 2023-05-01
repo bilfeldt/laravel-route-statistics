@@ -18,6 +18,10 @@ This package lets you:
 - See how much each user uses the application and what part of the application they use
 - See if any unauthenticated users are making a lot of requests to your application
 
+| Version | Laravel     | PHP            |
+|---------|-------------|----------------|
+| 1.*     | 8.* \| 9.*  | 7.4.* \| 8.0.* |
+| 2.*     | 9.* \| 10.* | 8.1.* \| 8.2.* |
 
 ## Installation
 
