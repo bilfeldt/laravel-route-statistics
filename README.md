@@ -9,6 +9,11 @@
 
 Log Laravel requests and responses for statistical purposes and optionally aggregate by hours/days/months for minimal db requirements.
 
+| Version | Laravel     | PHP                     |
+|---------|-------------|-------------------------|
+| 1.*     | 8.* \| 9.*  | 7.4.* \| 8.0.* \| 8.1.* |
+| 2.*     | 10.*        | 8.2.*                   |
+
 ## Description
 
 Log requests and group them together for aggregated statistics of route usage. Grouping requests by route means that this package saves a minimum of data to the database and subsequent purging of old data can improve this even further.

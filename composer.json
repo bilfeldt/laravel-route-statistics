@@ -14,11 +14,6 @@
             "name": "Anders Bilfeldt",
             "email": "abilfeldt@gmail.com",
             "role": "Developer"
-        },
-        {
-            "name": "Jeremias Wolff",
-            "email": "github@jeremias.dev",
-            "role": "Developer"
         }
     ],
     "require": {
@@ -28,12 +23,10 @@
         "laravel/framework": "^10.0"
     },
     "require-dev": {
-        "brianium/paratest": "^7.1",
         "nunomaduro/collision": "^7.2",
         "orchestra/testbench": "^8.0",
         "phpunit/phpunit": "^10.0",
-        "spatie/laravel-ray": "^1.32",
-        "vimeo/psalm": "^5.9"
+        "spatie/laravel-ray": "^1.32"
     },
     "autoload": {
         "psr-4": {
@@ -47,8 +40,7 @@
         }
     },
     "scripts": {
-        "psalm": "vendor/bin/psalm",
-        "test": "./vendor/bin/testbench package:test --parallel --no-coverage",
+        "test": "./vendor/bin/testbench package:test --no-coverage",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
     },
     "config": {
