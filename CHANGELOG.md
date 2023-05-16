@@ -8,6 +8,10 @@ No breaking changes. The only changes are to the development dependencies used f
 
 ## Changes
 
+### 2.0.1 - 2023-05-16
+
+- Use model 'casts' property instead of the depricated `dates` property
+
 ### 2.0.0 - 2023-05-01
 
 - Add support for PHP 8.2
