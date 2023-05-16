@@ -20,8 +20,8 @@ class RouteStatistic extends Model implements RequestLoggerInterface
 
     public $timestamps = false;
 
-    protected $dates = [
-        'date',
+    protected $casts = [
+        'date' => 'datetime',
     ];
 
     //======================================================================
