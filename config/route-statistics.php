@@ -35,4 +35,15 @@ return [
     |
     */
     'model' => env('ROUTE_STATISTICS_MODEL', \Bilfeldt\LaravelRouteStatistics\Models\RouteStatistic::class),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Store Strategy
+    |--------------------------------------------------------------------------
+    |
+    | If you set this to true, the Logs stored in the database using queues
+    | It is good when you have large database
+    |
+    */
+    'with_queue' => env('ROUTE_STATISTICS_WITH_QUEUE', false),
 ];
