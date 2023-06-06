@@ -14,15 +14,13 @@ class CreateLog implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public array $attributes = [];
-    public array $values = [];
 
     /**
      * Create a new job instance.
      */
-    public function __construct(array $attributes, array $values)
+    public function __construct(array $attributes)
     {
         $this->attributes = $attributes;
-        $this->values = $values;
     }
 
     /**
@@ -30,7 +28,7 @@ class CreateLog implements ShouldQueue
      */
     public function handle(): void
     {
-        $model_namespace = config('route-statistics.model');
-        (new $model_namespace)->firstOrCreate($this->attributes, $this->values)->increment('counter', 1);
+        $modelClass = config('route-statistics.model');
+        $modelClass::firstOrCreate($this->attributes, ['counter' => 0])->increment('counter', 1);
     }
 }

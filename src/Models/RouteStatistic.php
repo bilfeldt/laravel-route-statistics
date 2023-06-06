@@ -69,26 +69,20 @@ class RouteStatistic extends Model implements RequestLoggerInterface
     public function log(Request $request, $response, ?int $time = null, ?int $memory = null): void
     {
         if ($route = optional($request->route())->getName() ?? optional($request->route())->uri()) {
+            $attributes = [
+                'user_id' => optional($request->user())->getKey(),
+                'team_id' => optional($this->getRequestTeam($request))->getKey(),
+                'method' => $request->getMethod(),
+                'route' => $route,
+                'status' => $response->getStatusCode(),
+                'ip' => $request->ip(),
+                'date' => $this->getDate(),
+            ];
+            
             if (config('route-statistics.with_queue')) {
-                CreateLog::dispatch([
-                    'user_id' => optional($request->user())->getKey(),
-                    'team_id' => optional($this->getRequestTeam($request))->getKey(),
-                    'method'  => $request->getMethod(),
-                    'route'   => $route,
-                    'status'  => $response->getStatusCode(),
-                    'ip'      => $request->ip(),
-                    'date'    => $this->getDate(),
-                ], ['counter' => 0]);
+                CreateLog::dispatch($attributes);
             } else {
-                static::firstOrCreate([
-                    'user_id' => optional($request->user())->getKey(),
-                    'team_id' => optional($this->getRequestTeam($request))->getKey(),
-                    'method'  => $request->getMethod(),
-                    'route'   => $route,
-                    'status'  => $response->getStatusCode(),
-                    'ip'      => $request->ip(),
-                    'date'    => $this->getDate(),
-                ], ['counter' => 0])->increment('counter', 1);
+                static::firstOrCreate($attributes, ['counter' => 0])->increment('counter', 1);
             }
         }
     }
