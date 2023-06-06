@@ -2,6 +2,7 @@
 
 namespace Bilfeldt\LaravelRouteStatistics\Models;
 
+use Bilfeldt\LaravelRouteStatistics\Jobs\CreateLog;
 use Bilfeldt\RequestLogger\Contracts\RequestLoggerInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
+use Modules\User\Entities\User;
 
 class RouteStatistic extends Model implements RequestLoggerInterface
 {
@@ -67,15 +69,27 @@ class RouteStatistic extends Model implements RequestLoggerInterface
     public function log(Request $request, $response, ?int $time = null, ?int $memory = null): void
     {
         if ($route = optional($request->route())->getName() ?? optional($request->route())->uri()) {
-            static::firstOrCreate([
-                'user_id' => optional($request->user())->getKey(),
-                'team_id' => optional($this->getRequestTeam($request))->getKey(),
-                'method'  => $request->getMethod(),
-                'route'   => $route,
-                'status'  => $response->getStatusCode(),
-                'ip'      => $request->ip(),
-                'date'    => $this->getDate(),
-            ], ['counter' => 0])->increment('counter', 1);
+            if (config('route-statistics.with_queue')) {
+                CreateLog::dispatch([
+                    'user_id' => optional($request->user())->getKey(),
+                    'team_id' => optional($this->getRequestTeam($request))->getKey(),
+                    'method'  => $request->getMethod(),
+                    'route'   => $route,
+                    'status'  => $response->getStatusCode(),
+                    'ip'      => $request->ip(),
+                    'date'    => $this->getDate(),
+                ], ['counter' => 0]);
+            } else {
+                static::firstOrCreate([
+                    'user_id' => optional($request->user())->getKey(),
+                    'team_id' => optional($this->getRequestTeam($request))->getKey(),
+                    'method'  => $request->getMethod(),
+                    'route'   => $route,
+                    'status'  => $response->getStatusCode(),
+                    'ip'      => $request->ip(),
+                    'date'    => $this->getDate(),
+                ], ['counter' => 0])->increment('counter', 1);
+            }
         }
     }
 
