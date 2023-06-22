@@ -40,7 +40,7 @@ class ImplementLogTest extends TestCase
             'ip'     => $request->ip(),
         ]);
     }
-    public function test_store_logs_with_queue_route_statistics()
+    public function test_store_logs_queued_route_statistics()
     {
         $route = 'route-statistics';
         $model = (new RouteStatistic);
@@ -78,7 +78,7 @@ class ImplementLogTest extends TestCase
         ]);
     }
 
-    public function test_job_will_dispatched_with_queue()
+    public function test_job_will_dispatched_queued()
     {
 
         $route = 'route-statistics';
@@ -93,7 +93,7 @@ class ImplementLogTest extends TestCase
         $response = $this->app['router']->dispatch($request);
         $request->routeStatistics();
 
-        Config::set('route-statistics.with_queue', true);
+        Config::set('route-statistics.queued', true);
 
         Queue::fake();
 

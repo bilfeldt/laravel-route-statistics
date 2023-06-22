@@ -13,7 +13,7 @@ class CreateLog implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public array $attributes = [];
+    public array $attributes;
 
     /**
      * Create a new job instance.

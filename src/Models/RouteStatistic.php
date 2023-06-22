@@ -79,7 +79,7 @@ class RouteStatistic extends Model implements RequestLoggerInterface
                 'date' => $this->getDate(),
             ];
             
-            if (config('route-statistics.with_queue')) {
+            if (config('route-statistics.queued')) {
                 CreateLog::dispatch($attributes);
             } else {
                 static::firstOrCreate($attributes, ['counter' => 0])->increment('counter', 1);
