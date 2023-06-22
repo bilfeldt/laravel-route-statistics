@@ -2,8 +2,11 @@
 
 namespace Bilfeldt\LaravelRouteStatistics\Tests\Unit;
 
+use Bilfeldt\LaravelRouteStatistics\Jobs\CreateLog;
 use Bilfeldt\LaravelRouteStatistics\Models\RouteStatistic;
 use Bilfeldt\LaravelRouteStatistics\Tests\TestCase;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Queue;
 
 class RouteStatisticModelTest extends TestCase
 {
