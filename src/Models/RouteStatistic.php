@@ -68,7 +68,7 @@ class RouteStatistic extends Model implements RequestLoggerInterface
 
     public function log(Request $request, $response, ?int $time = null, ?int $memory = null): void
     {
-        if ($route = optional($request->route())->getName() ?? optional($request->route())->uri()) {
+        if ($route = $request->route()?->getName() ?? $request->route()?->uri()) {
             $attributes = $this->getLogAttributes($request, $response, $time, $memory);
             
             if (config('route-statistics.queued')) {
