@@ -69,15 +69,7 @@ class RouteStatistic extends Model implements RequestLoggerInterface
     public function log(Request $request, $response, ?int $time = null, ?int $memory = null): void
     {
         if ($route = optional($request->route())->getName() ?? optional($request->route())->uri()) {
-            $attributes = [
-                'user_id' => optional($request->user())->getKey(),
-                'team_id' => optional($this->getRequestTeam($request))->getKey(),
-                'method' => $request->getMethod(),
-                'route' => $route,
-                'status' => $response->getStatusCode(),
-                'ip' => $request->ip(),
-                'date' => $this->getDate(),
-            ];
+            $attributes = $this->getLogAttributes($request, $response, $time, $memory);
             
             if (config('route-statistics.queued')) {
                 CreateLog::dispatch($attributes);
@@ -85,6 +77,19 @@ class RouteStatistic extends Model implements RequestLoggerInterface
                 static::firstOrCreate($attributes, ['counter' => 0])->increment('counter', 1);
             }
         }
+    }
+
+    public function getLogAttributes(Request $request, $response, ?int $time = null, ?int $memory = null): array
+    {
+        return [
+            'user_id' => $request->user()?->getKey(),
+            'team_id' => $this->getRequestTeam($request)?->getKey(),
+            'method' => $request->getMethod(),
+            'route' => $request->route()?->getName() ?? $request->route()?->uri(),
+            'status' => $response->getStatusCode(),
+            'ip' => $request->ip(),
+            'date' => $this->getDate(),
+        ];
     }
 
     protected function getRequestTeam(Request $request): ?Model
