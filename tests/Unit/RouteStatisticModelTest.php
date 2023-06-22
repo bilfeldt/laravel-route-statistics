@@ -17,6 +17,10 @@ class RouteStatisticModelTest extends TestCase
         Queue::fake();
 
         $request = \Illuminate\Http\Request::create('/home', 'GET');
+        $this->app['router']->get($route, function () {
+
+            return 'Test route response';
+        });
         $response = $this->app['router']->dispatch($request);
 
         (new RouteStatistic)->log($request, $response, 1, 2);
@@ -33,6 +37,10 @@ class RouteStatisticModelTest extends TestCase
         Queue::fake();
 
         $request = \Illuminate\Http\Request::create('/home', 'GET');
+        $this->app['router']->get($route, function () {
+
+            return 'Test route response';
+        });
         $response = $this->app['router']->dispatch($request);
 
         (new RouteStatistic)->log($request, $response, 1, 2);
