@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
-use Modules\User\Entities\User;
 
 class RouteStatistic extends Model implements RequestLoggerInterface
 {
@@ -70,7 +69,7 @@ class RouteStatistic extends Model implements RequestLoggerInterface
     {
         if ($route = $request->route()?->getName() ?? $request->route()?->uri()) {
             $attributes = $this->getLogAttributes($request, $response, $time, $memory);
-            
+
             if (config('route-statistics.queued')) {
                 CreateLog::dispatch($attributes);
             } else {

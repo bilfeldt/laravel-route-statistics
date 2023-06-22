@@ -4,7 +4,6 @@ namespace Bilfeldt\LaravelRouteStatistics\Tests\Unit;
 
 use Bilfeldt\LaravelRouteStatistics\Models\RouteStatistic;
 use Bilfeldt\LaravelRouteStatistics\Tests\TestCase;
-use Illuminate\Http\Request;
 
 class RouteStatisticModelTest extends TestCase
 {
@@ -37,7 +36,7 @@ class RouteStatisticModelTest extends TestCase
 
         Queue::assertPushed(CreateLog::class);
     }
-    
+
     public function test_get_log_attributes(): void
     {
         $this->markTestIncomplete('Mock the request and response to ensture the correct attributes are returned');
