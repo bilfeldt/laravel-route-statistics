@@ -12,7 +12,7 @@ Log Laravel requests and responses for statistical purposes and optionally aggre
 | Version | Laravel     | PHP                     |
 |---------|-------------|-------------------------|
 | 1.*     | 8.* \| 9.*  | 7.4.* \| 8.0.* \| 8.1.* |
-| 2.*     | 10.*        | 8.2.*                   |
+| 2.*     | 10.*        | 8.1.* \| 8.2.*          |
 
 ## Description
 
