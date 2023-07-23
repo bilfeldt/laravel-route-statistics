@@ -8,6 +8,14 @@ No breaking changes. The only changes are to the development dependencies used f
 
 ## Changes
 
+### 2.2.0 - 2023-07-24
+
+- Add support for PHP 8.1
+
+### 2.1.0 - 2023-06-22
+
+- Add queued logging
+
 ### 2.0.1 - 2023-05-16
 
 - Use model 'casts' property instead of the depricated `dates` property
