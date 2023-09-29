@@ -2,11 +2,21 @@
 
 All notable changes to `laravel-route-statistics` will be documented in this file.
 
+## Upgrade guide
+
+### 2.* => 3.*
+
+There are no breaking changes if you are simply using this package. But the dependency of [`bilfeldt/laravel-request-logger`](https://packagist.org/packages/bilfeldt/laravel-request-logger) was upgraded to version 3 which means if you are also logging requests using this package, then you need to consult [the upgrade guide for that package](https://github.com/bilfeldt/laravel-request-logger/blob/main/CHANGELOG.md#2--3).
+
 ### 1.* => 2.*
 
 No breaking changes. The only changes are to the development dependencies used for testing and then the minimum Laravel and PHP requirements.
 
 ## Changes
+
+### 3.0.0 - 2023-09-29
+
+- Update [`bilfeldt/laravel-request-logger`](https://packagist.org/packages/bilfeldt/laravel-request-logger) to version 3
 
 ### 2.2.0 - 2023-07-24
 
