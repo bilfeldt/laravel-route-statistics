@@ -14,6 +14,10 @@ No breaking changes. The only changes are to the development dependencies used f
 
 ## Changes
 
+### 3.1.0 - 2024-01-08
+
+- Add PHP 8.3 compatibility
+
 ### 3.0.0 - 2023-09-29
 
 - Update [`bilfeldt/laravel-request-logger`](https://packagist.org/packages/bilfeldt/laravel-request-logger) to version 3
