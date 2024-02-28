@@ -14,6 +14,10 @@ No breaking changes. The only changes are to the development dependencies used f
 
 ## Changes
 
+### 3.2.0 - 2024-02-28
+
+- Add Laravel 11 compatibility
+
 ### 3.1.0 - 2024-01-08
 
 - Add PHP 8.3 compatibility
