@@ -21,6 +21,9 @@ class RouteStatistic extends Model implements RequestLoggerInterface
 
     public $timestamps = false;
 
+    const CREATED_AT = 'date';
+    const UPDATED_AT = null;
+
     protected $casts = [
         'date' => 'datetime',
     ];
