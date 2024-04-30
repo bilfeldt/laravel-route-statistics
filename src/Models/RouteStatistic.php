@@ -53,7 +53,7 @@ class RouteStatistic extends Model implements RequestLoggerInterface
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(config('auth.providers.users.model'));
+        return $this->belongsTo(config('route-statistics.user_model'));
     }
 
     public function team(): BelongsTo
@@ -109,8 +109,12 @@ class RouteStatistic extends Model implements RequestLoggerInterface
         $date = Date::now();
         $aggregate = config('route-statistics.aggregate');
 
-        if ($aggregate && ! in_array($aggregate, ['YEAR', 'MONTH', 'DAY', 'HOUR', 'MINUTE'])) {
+        if ($aggregate && ! in_array($aggregate, ['YEAR', 'MONTH', 'DAY', 'HOUR', 'MINUTE', 'SECOND'])) {
             throw new \OutOfBoundsException('Invalid date aggregation');
+        }
+
+        if (in_array($aggregate, ['YEAR', 'MONTH', 'DAY', 'HOUR', 'MINUTE', 'SECOND'])) {
+            $date->setMicrosecond(0);
         }
 
         if (in_array($aggregate, ['YEAR', 'MONTH', 'DAY', 'HOUR', 'MINUTE'])) {
