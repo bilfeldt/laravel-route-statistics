@@ -18,7 +18,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This setting controls how we should aggregate requests.
-    | Possible values are: MINUTE, HOUR, DAY, MONTH, YEAR
+    | Possible values are: SECOND, MINUTE, HOUR, DAY, MONTH, YEAR
     |
     */
     'aggregate' => env('ROUTE_STATISTICS_AGGREGATE', 'DAY'),
@@ -46,4 +46,15 @@ return [
     |
     */
     'queued' => env('ROUTE_STATISTICS_QUEUED', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | User Model
+    |--------------------------------------------------------------------------
+    |
+    | This is the model used for user relationships.
+    | You can set a custom user model for relationships.
+    |
+    */
+    'user_model' => env('ROUTE_STATISTICS_USER_MODEL', config('auth.providers.users.model')),
 ];
