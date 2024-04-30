@@ -18,7 +18,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This setting controls how we should aggregate requests.
-    | Possible values are: MINUTE, HOUR, DAY, MONTH, YEAR
+    | Possible values are: SECOND, MINUTE, HOUR, DAY, MONTH, YEAR
     |
     */
     'aggregate' => env('ROUTE_STATISTICS_AGGREGATE', 'DAY'),
