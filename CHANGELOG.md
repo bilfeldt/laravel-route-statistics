@@ -14,6 +14,8 @@ No breaking changes. The only changes are to the development dependencies used f
 
 ## Changes
 
+- Add second-level aggregation and make sure that microseconds is always set to 0
+
 ### 3.2.0 - 2024-02-28
 
 - Add Laravel 11 compatibility
