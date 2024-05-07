@@ -53,7 +53,7 @@ class RouteStatistic extends Model implements RequestLoggerInterface
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(config('route-statistics.user_model'));
+        return $this->belongsTo(config('auth.providers.users.model'));
     }
 
     public function team(): BelongsTo
