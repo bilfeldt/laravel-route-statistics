@@ -17,7 +17,6 @@ No breaking changes. The only changes are to the development dependencies used f
 ### 3.3.0 - 2024-05-07
 
 - Add second-level aggregation and make sure that microseconds is always set to 0
-- Add config for which model to use in the `RequestLog` models `user()` relationship
 
 ### 3.2.0 - 2024-02-28
 
