@@ -46,4 +46,17 @@ return [
     |
     */
     'queued' => env('ROUTE_STATISTICS_QUEUED', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | User Model
+    |--------------------------------------------------------------------------
+    |
+    | This is the model used for user relationships.
+    | You can set a custom user model for relationships.
+    |
+    | Leaving this empty will use the model from the 'users' auth provider.
+    |
+    */
+    'user_model' => env('ROUTE_STATISTICS_USER_MODEL'),
 ];
