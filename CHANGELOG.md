@@ -14,6 +14,8 @@ No breaking changes. The only changes are to the development dependencies used f
 
 ## Changes
 
+### 3.4.0 - 2024-05-10
+
 - Add config for which model to use in the `RouteStatistic` models `user()` relationship
 
 ### 3.3.0 - 2024-05-07
