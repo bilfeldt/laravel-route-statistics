@@ -13,6 +13,7 @@ Log Laravel requests and responses for statistical purposes and optionally aggre
 |---------|-------------|-------------------------|
 | 1.*     | 8.* \| 9.*  | 7.4.* \| 8.0.* \| 8.1.* |
 | 2.*     | 10.*        | 8.1.* \| 8.2.*          |
+| 3.*     | 11.*        | 8.1.* \| 8.2.* \| 8.3.* |
 
 ## Description
 
