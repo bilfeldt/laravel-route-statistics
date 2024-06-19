@@ -2,6 +2,7 @@
 
 namespace Bilfeldt\LaravelRouteStatistics;
 
+use Bilfeldt\LaravelRouteStatistics\Commands\LaravelRouteTruncateCommand;
 use Bilfeldt\LaravelRouteStatistics\Commands\LaravelRouteStatisticsCommand;
 use Bilfeldt\LaravelRouteStatistics\Commands\LaravelRouteUnusedCommand;
 use Bilfeldt\LaravelRouteStatistics\Http\Middleware\RouteStatisticsMiddleware;
@@ -60,6 +61,7 @@ class LaravelRouteStatisticsServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../database/migrations/create_route_statistics_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_route_statistics_table.php'),
+            __DIR__.'/../database/migrations/add_parameters_to_route_statistics_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_add_parameters_to_route_statistics_table.php'),
             // you can add any number of migrations here
         ], 'migrations');
     }
@@ -69,6 +71,7 @@ class LaravelRouteStatisticsServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 LaravelRouteStatisticsCommand::class,
+                LaravelRouteTruncateCommand::class,
                 LaravelRouteUnusedCommand::class,
             ]);
         }
