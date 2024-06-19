@@ -45,7 +45,7 @@ class TestCase extends Orchestra
     {
         foreach ($fileNames as $fileName) {
             $class = require __DIR__.'/../database/migrations/'.$fileName.'.php.stub';
-            ($class)->up();
+            $class->up();
         }
     }
 }

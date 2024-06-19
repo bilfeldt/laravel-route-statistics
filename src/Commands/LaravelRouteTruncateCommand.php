@@ -2,7 +2,6 @@
 
 namespace Bilfeldt\LaravelRouteStatistics\Commands;
 
-use Exception;
 use Illuminate\Console\Command;
 use TypeError;
 
@@ -16,8 +15,7 @@ class LaravelRouteTruncateCommand extends Command
     {
         try {
             call_user_func_array([config('route-statistics.model'), 'truncate'], []);
-        }
-        catch(TypeError $ex) {
+        } catch (TypeError $ex) {
             $this->components->error('Failed to truncate route usage statistics: '.$ex->getMessage());
         }
 

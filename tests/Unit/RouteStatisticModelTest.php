@@ -5,7 +5,6 @@ namespace Bilfeldt\LaravelRouteStatistics\Tests\Unit;
 use Bilfeldt\LaravelRouteStatistics\Jobs\CreateLog;
 use Bilfeldt\LaravelRouteStatistics\Models\RouteStatistic;
 use Bilfeldt\LaravelRouteStatistics\Tests\TestCase;
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Queue;
 
@@ -57,8 +56,8 @@ class RouteStatisticModelTest extends TestCase
             'param1' => 'one',
             'param2' => 'two',
         ];
-        $request = \Illuminate\Http\Request::create($route.'/'.join('/', $this->get_route_parameters($params)), 'GET');
-        $this->app['router']->get($route.'/'.join('/', $this->get_route_keys($params)), fn () => 'Test route response');
+        $request = \Illuminate\Http\Request::create($route.'/'.implode('/', $this->get_route_parameters($params)), 'GET');
+        $this->app['router']->get($route.'/'.implode('/', $this->get_route_keys($params)), fn () => 'Test route response');
         $response = $this->app['router']->dispatch($request);
 
         (new RouteStatistic)->log($request, $response, 1, 2);
@@ -76,8 +75,8 @@ class RouteStatisticModelTest extends TestCase
             'param1' => 'one',
             'param2' => 'two',
         ];
-        $request = \Illuminate\Http\Request::create($route.'/'.join('/', $this->get_route_parameters($params)), 'GET');
-        $this->app['router']->get($route.'/'.join('/', $this->get_route_keys($params)), fn () => 'Test route response');
+        $request = \Illuminate\Http\Request::create($route.'/'.implode('/', $this->get_route_parameters($params)), 'GET');
+        $this->app['router']->get($route.'/'.implode('/', $this->get_route_keys($params)), fn () => 'Test route response');
         $response = $this->app['router']->dispatch($request);
 
         (new RouteStatistic)->log($request, $response, 1, 2);
@@ -93,6 +92,6 @@ class RouteStatisticModelTest extends TestCase
 
     private function get_route_keys(array $parameters): array
     {
-        return array_map(fn($parameter) => '{'.$parameter.'}', array_keys($parameters));
+        return array_map(fn ($parameter) => '{'.$parameter.'}', array_keys($parameters));
     }
 }
