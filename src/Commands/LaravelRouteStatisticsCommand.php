@@ -2,6 +2,7 @@
 
 namespace Bilfeldt\LaravelRouteStatistics\Commands;
 
+use Bilfeldt\LaravelRouteStatistics\Models\RouteStatistic;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
@@ -29,25 +30,34 @@ class LaravelRouteStatisticsCommand extends Command
     public function handle()
     {
         $query = $this->getQuery();
-        $fields = $this->getFields();
 
         if ($this->option('group')) {
             $query->select($this->option('group'))
                 ->addSelect(DB::raw('MAX(date) as last_used'))
                 ->addSelect(DB::raw('SUM(counter) as counter'));
         } else {
-            $query->select($fields);
+            $query->select($this->getColumns());
         }
 
         $this->applyFilters($query);
         $this->applyGrouping($query);
         $this->applySorting($query);
 
-        $results = $query->limit($this->option('limit'))->get();
+        $results = $query
+            ->limit($this->option('limit'))
+            ->get()
+            ->map(function (RouteStatistic $item) {
+                $data = $item->toArray();
+                if (array_key_exists('parameters', $data)) {
+                    $data['parameters'] = json_encode($data['parameters']);
+                }
+
+                return $data;
+            });
 
         $this->table(
-            $fields,
-            $results->toArray()
+            $this->getFields(),
+            $results
         );
 
         return Command::SUCCESS;
@@ -114,6 +124,11 @@ class LaravelRouteStatisticsCommand extends Command
             return array_merge($this->option('group'), ['last_used', 'counter']);
         }
 
+        return $this->getColumns();
+    }
+
+    protected function getColumns()
+    {
         return array_filter([
             'id',
             'user_id',

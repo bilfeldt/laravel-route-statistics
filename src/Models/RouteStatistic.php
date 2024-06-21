@@ -23,6 +23,7 @@ class RouteStatistic extends Model implements RequestLoggerInterface
 
     protected $casts = [
         'date' => 'datetime',
+        'parameters' => 'array',
     ];
 
     //======================================================================
