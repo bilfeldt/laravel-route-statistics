@@ -29,11 +29,14 @@ class LaravelRouteStatisticsCommand extends Command
     public function handle()
     {
         $query = $this->getQuery();
+        $fields = $this->getFields();
 
         if ($this->option('group')) {
             $query->select($this->option('group'))
                 ->addSelect(DB::raw('MAX(date) as last_used'))
                 ->addSelect(DB::raw('SUM(counter) as counter'));
+        } else {
+            $query->select($fields);
         }
 
         $this->applyFilters($query);
@@ -43,7 +46,7 @@ class LaravelRouteStatisticsCommand extends Command
         $results = $query->limit($this->option('limit'))->get();
 
         $this->table(
-            $this->getFields(),
+            $fields,
             $results->toArray()
         );
 
@@ -111,16 +114,17 @@ class LaravelRouteStatisticsCommand extends Command
             return array_merge($this->option('group'), ['last_used', 'counter']);
         }
 
-        return [
+        return array_filter([
             'id',
             'user_id',
             'team_id',
             'method',
             'route',
             'status',
+            config('route-statistics.store_parameters') === true ? 'parameters' : null,
             'ip',
             'date',
             'counter',
-        ];
+        ]);
     }
 }
