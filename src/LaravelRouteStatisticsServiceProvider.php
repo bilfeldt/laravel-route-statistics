@@ -3,7 +3,6 @@
 namespace Bilfeldt\LaravelRouteStatistics;
 
 use Bilfeldt\LaravelRouteStatistics\Commands\LaravelRouteStatisticsCommand;
-use Bilfeldt\LaravelRouteStatistics\Commands\LaravelRouteTruncateCommand;
 use Bilfeldt\LaravelRouteStatistics\Commands\LaravelRouteUnusedCommand;
 use Bilfeldt\LaravelRouteStatistics\Http\Middleware\RouteStatisticsMiddleware;
 use Bilfeldt\RequestLogger\RequestLoggerFacade;
@@ -71,7 +70,6 @@ class LaravelRouteStatisticsServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 LaravelRouteStatisticsCommand::class,
-                LaravelRouteTruncateCommand::class,
                 LaravelRouteUnusedCommand::class,
             ]);
         }
