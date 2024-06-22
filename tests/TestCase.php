@@ -35,7 +35,17 @@ class TestCase extends Orchestra
             'prefix' => '',
         ]);
 
-        $migration = include __DIR__.'/../database/migrations/create_route_statistics_table.php.stub';
-        $migration->up();
+        $this->runMigrations([
+            'create_route_statistics_table',
+            'add_parameters_to_route_statistics_table',
+        ]);
+    }
+
+    private function runMigrations(array $fileNames): void
+    {
+        foreach ($fileNames as $fileName) {
+            $class = require __DIR__.'/../database/migrations/'.$fileName.'.php.stub';
+            $class->up();
+        }
     }
 }

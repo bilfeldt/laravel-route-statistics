@@ -147,6 +147,7 @@ This package works as follows:
   - `team_id`: The team id associated with the request (if available)
   - `method`: The HTTP method (`GET/POST/...`)
   - `route`: The route name (if available) or the route URI (eg `/posts/{post}`)
+  - `parameters`: The route parameters passed (if enabled else `null`)
   - `status`: The HTTP status (eg `202`)
   - `ip`: The request ip
   - `date`: The date of the request as datetime (can be aggregated)
