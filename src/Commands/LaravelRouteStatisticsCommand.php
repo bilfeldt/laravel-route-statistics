@@ -35,28 +35,24 @@ class LaravelRouteStatisticsCommand extends Command
             $query->select($this->option('group'))
                 ->addSelect(DB::raw('MAX(date) as last_used'))
                 ->addSelect(DB::raw('SUM(counter) as counter'));
-        } else {
-            $query->select($this->getColumns());
         }
 
         $this->applyFilters($query);
         $this->applyGrouping($query);
         $this->applySorting($query);
 
+        $fields = $this->getFields();
+
         $results = $query
             ->limit($this->option('limit'))
             ->get()
-            ->map(function (RouteStatistic $item) {
-                $data = $item->toArray();
-                if (array_key_exists('parameters', $data)) {
-                    $data['parameters'] = json_encode($data['parameters']);
-                }
-
-                return $data;
-            });
+            ->map(fn (RouteStatistic $data): array => array_map(
+                fn (mixed $item): mixed => is_array($item) ? json_encode($item) : $item,
+                $data->only($fields)
+            ));
 
         $this->table(
-            $this->getFields(),
+            $fields,
             $results
         );
 
@@ -124,11 +120,6 @@ class LaravelRouteStatisticsCommand extends Command
             return array_merge($this->option('group'), ['last_used', 'counter']);
         }
 
-        return $this->getColumns();
-    }
-
-    protected function getColumns()
-    {
         return array_filter([
             'id',
             'user_id',
