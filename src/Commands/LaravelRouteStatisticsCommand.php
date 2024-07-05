@@ -124,7 +124,7 @@ class LaravelRouteStatisticsCommand extends Command
             'method',
             'route',
             'status',
-            config('route-statistics.store_parameters') === true ? 'parameters' : null,
+            config('route-statistics.store_route_parameters') === true ? 'parameters' : null,
             'ip',
             'date',
             'counter',
