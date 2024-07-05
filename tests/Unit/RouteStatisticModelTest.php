@@ -63,7 +63,7 @@ class RouteStatisticModelTest extends TestCase
         (new RouteStatistic)->log($request, $response, 1, 2);
 
         $log = RouteStatistic::first();
-        $this->assertEquals(json_encode($params), $log->parameters);
+        $this->assertEquals($params, $log->parameters);
     }
 
     public function test_logs_parameters_if_config_disabled(): void
