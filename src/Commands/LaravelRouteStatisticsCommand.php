@@ -132,8 +132,8 @@ class LaravelRouteStatisticsCommand extends Command
     }
 
     /**
-     * @param RouteStatistic $model
-     * @param $fields array<string>
+     * @param  RouteStatistic  $model
+     * @param  $fields  array<string>
      * @return array<string>
      */
     protected function toTableRow(RouteStatistic $model, array $fields): array
