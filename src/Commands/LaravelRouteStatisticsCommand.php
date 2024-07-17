@@ -46,10 +46,7 @@ class LaravelRouteStatisticsCommand extends Command
         $results = $query
             ->limit($this->option('limit'))
             ->get()
-            ->map(fn (RouteStatistic $data): array => array_map(
-                fn (mixed $item): mixed => is_array($item) ? json_encode($item) : $item,
-                $data->only($fields)
-            ));
+            ->map(fn (RouteStatistic $model): array => $this->toTableRow($model, $fields));
 
         $this->table(
             $fields,
@@ -127,10 +124,23 @@ class LaravelRouteStatisticsCommand extends Command
             'method',
             'route',
             'status',
-            config('route-statistics.store_parameters') === true ? 'parameters' : null,
+            config('route-statistics.store_route_parameters') === true ? 'parameters' : null,
             'ip',
             'date',
             'counter',
         ]);
+    }
+
+    /**
+     * @param  RouteStatistic  $model
+     * @param  $fields  array<string>
+     * @return array<string>
+     */
+    protected function toTableRow(RouteStatistic $model, array $fields): array
+    {
+        return array_map(
+            fn (mixed $item): mixed => is_array($item) ? json_encode($item) : $item,
+            $model->only($fields)
+        );
     }
 }

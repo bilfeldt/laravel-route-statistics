@@ -20,7 +20,7 @@ return [
     | If this setting is set to true the route parameters will also be logged.
     |
     */
-    'store_parameters' => env('ROUTE_STORE_PARAMETERS', false),
+    'store_route_parameters' => env('ROUTE_STATISTICS_STORE_ROUTE_PARAMETERS', false),
 
     /*
     |--------------------------------------------------------------------------

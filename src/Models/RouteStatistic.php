@@ -86,7 +86,7 @@ class RouteStatistic extends Model implements RequestLoggerInterface
             'team_id' => $this->getRequestTeam($request)?->getKey(),
             'method' => $request->getMethod(),
             'route' => $request->route()?->getName() ?? $request->route()?->uri(),
-            'parameters' => config('route-statistics.store_parameters') ? json_encode($request->route()->originalParameters()) : null,
+            'parameters' => config('route-statistics.store_route_parameters') ? $request->route()->originalParameters() : null,
             'status' => $response->getStatusCode(),
             'ip' => $request->ip(),
             'date' => $this->getDate(),

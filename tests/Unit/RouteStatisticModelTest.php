@@ -49,7 +49,7 @@ class RouteStatisticModelTest extends TestCase
 
     public function test_logs_parameters_if_config_enabled(): void
     {
-        Config::set('route-statistics.store_parameters', true);
+        Config::set('route-statistics.store_route_parameters', true);
 
         $route = 'home';
         $params = [
@@ -63,12 +63,12 @@ class RouteStatisticModelTest extends TestCase
         (new RouteStatistic)->log($request, $response, 1, 2);
 
         $log = RouteStatistic::first();
-        $this->assertEquals(json_encode($params), $log->parameters);
+        $this->assertEquals($params, $log->parameters);
     }
 
     public function test_logs_parameters_if_config_disabled(): void
     {
-        Config::set('route-statistics.store_parameters', false);
+        Config::set('route-statistics.store_route_parameters', false);
 
         $route = 'home';
         $params = [
