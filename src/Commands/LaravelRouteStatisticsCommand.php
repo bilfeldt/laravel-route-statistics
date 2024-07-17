@@ -2,6 +2,7 @@
 
 namespace Bilfeldt\LaravelRouteStatistics\Commands;
 
+use Bilfeldt\LaravelRouteStatistics\Models\RouteStatistic;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
@@ -40,11 +41,16 @@ class LaravelRouteStatisticsCommand extends Command
         $this->applyGrouping($query);
         $this->applySorting($query);
 
-        $results = $query->limit($this->option('limit'))->get();
+        $fields = $this->getFields();
+
+        $results = $query
+            ->limit($this->option('limit'))
+            ->get()
+            ->map(fn (RouteStatistic $model): array => $this->toTableRow($model, $fields));
 
         $this->table(
-            $this->getFields(),
-            $results->toArray()
+            $fields,
+            $results
         );
 
         return Command::SUCCESS;
@@ -111,16 +117,30 @@ class LaravelRouteStatisticsCommand extends Command
             return array_merge($this->option('group'), ['last_used', 'counter']);
         }
 
-        return [
+        return array_filter([
             'id',
             'user_id',
             'team_id',
             'method',
             'route',
             'status',
+            config('route-statistics.store_route_parameters') === true ? 'parameters' : null,
             'ip',
             'date',
             'counter',
-        ];
+        ]);
+    }
+
+    /**
+     * @param  RouteStatistic  $model
+     * @param  $fields  array<string>
+     * @return array<string>
+     */
+    protected function toTableRow(RouteStatistic $model, array $fields): array
+    {
+        return array_map(
+            fn (mixed $item): mixed => is_array($item) ? json_encode($item) : $item,
+            $model->only($fields)
+        );
     }
 }

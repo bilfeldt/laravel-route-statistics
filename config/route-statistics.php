@@ -14,6 +14,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Store parameters
+    |--------------------------------------------------------------------------
+    |
+    | If this setting is set to true the route parameters will also be logged.
+    |
+    */
+    'store_route_parameters' => env('ROUTE_STATISTICS_STORE_ROUTE_PARAMETERS', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Aggregation
     |--------------------------------------------------------------------------
     |

@@ -46,4 +46,52 @@ class RouteStatisticModelTest extends TestCase
     {
         $this->markTestIncomplete('Mock the request and response to ensture the correct attributes are returned');
     }
+
+    public function test_logs_parameters_if_config_enabled(): void
+    {
+        Config::set('route-statistics.store_route_parameters', true);
+
+        $route = 'home';
+        $params = [
+            'param1' => 'one',
+            'param2' => 'two',
+        ];
+        $request = \Illuminate\Http\Request::create($route.'/'.implode('/', $this->get_route_parameters($params)), 'GET');
+        $this->app['router']->get($route.'/'.implode('/', $this->get_route_keys($params)), fn () => 'Test route response');
+        $response = $this->app['router']->dispatch($request);
+
+        (new RouteStatistic)->log($request, $response, 1, 2);
+
+        $log = RouteStatistic::first();
+        $this->assertEquals($params, $log->parameters);
+    }
+
+    public function test_logs_parameters_if_config_disabled(): void
+    {
+        Config::set('route-statistics.store_route_parameters', false);
+
+        $route = 'home';
+        $params = [
+            'param1' => 'one',
+            'param2' => 'two',
+        ];
+        $request = \Illuminate\Http\Request::create($route.'/'.implode('/', $this->get_route_parameters($params)), 'GET');
+        $this->app['router']->get($route.'/'.implode('/', $this->get_route_keys($params)), fn () => 'Test route response');
+        $response = $this->app['router']->dispatch($request);
+
+        (new RouteStatistic)->log($request, $response, 1, 2);
+
+        $log = RouteStatistic::first();
+        $this->assertNull($log->parameters);
+    }
+
+    private function get_route_parameters(array $parameters): array
+    {
+        return array_values($parameters);
+    }
+
+    private function get_route_keys(array $parameters): array
+    {
+        return array_map(fn ($parameter) => '{'.$parameter.'}', array_keys($parameters));
+    }
 }
