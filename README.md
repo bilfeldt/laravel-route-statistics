@@ -9,11 +9,11 @@
 
 Log Laravel requests and responses for statistical purposes and optionally aggregate by hours/days/months for minimal db requirements.
 
-| Version | Laravel     | PHP                     |
-|---------|-------------|-------------------------|
-| 1.*     | 8.* \| 9.*  | 7.4.* \| 8.0.* \| 8.1.* |
-| 2.*     | 10.*        | 8.1.* \| 8.2.*          |
-| 3.*     | 11.*        | 8.1.* \| 8.2.* \| 8.3.* |
+| Version | Laravel     | PHP                              |
+|---------|-------------|----------------------------------|
+| 1.*     | 8.* \| 9.*  | 7.4.* \| 8.0.* \| 8.1.*          |
+| 2.*     | 10.*        | 8.1.* \| 8.2.*                   |
+| 3.*     | 11.*        | 8.1.* \| 8.2.* \| 8.3.* \| 8.4.* |
 
 ## Description
 
