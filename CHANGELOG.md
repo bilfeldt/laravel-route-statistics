@@ -2,21 +2,12 @@
 
 All notable changes to `laravel-route-statistics` will be documented in this file.
 
-## Upgrade guide
-
-### 2.* => 3.*
-
-There are no breaking changes if you are simply using this package. But the dependency of [`bilfeldt/laravel-request-logger`](https://packagist.org/packages/bilfeldt/laravel-request-logger) was upgraded to version 3 which means if you are also logging requests using this package, then you need to consult [the upgrade guide for that package](https://github.com/bilfeldt/laravel-request-logger/blob/main/CHANGELOG.md#2--3).
-
-### 1.* => 2.*
-
-No breaking changes. The only changes are to the development dependencies used for testing and then the minimum Laravel and PHP requirements.
-
 ## Changes
 
-### 3.5.0- 2024-12-04
+### 4.0.0 - 2024-12-04
 
 - Add PHP 8.4 compatibility
+- Add route parameters as separate DB field
 
 ### 3.4.0 - 2024-05-10
 
