@@ -14,7 +14,7 @@ No breaking changes. The only changes are to the development dependencies used f
 
 ## Changes
 
-### 3.4.1 - 2024-12-04
+### 3.5.0- 2024-12-04
 
 - Add PHP 8.4 compatibility
 
