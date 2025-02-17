@@ -23,8 +23,8 @@
     "require": {
         "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
         "bilfeldt/laravel-request-logger": "^3.0",
-        "illuminate/contracts": "^11.0 || ^10.0 || ^12.0",
-        "laravel/framework": "^11.0 || ^10.0 || ^12.0"
+        "illuminate/contracts": "^10.0 || ^11.0 || ^12.0",
+        "laravel/framework": "^10.0 || ^11.0 || ^12.0"
     },
     "require-dev": {
         "nunomaduro/collision": "^7.2 || ^8.0",
