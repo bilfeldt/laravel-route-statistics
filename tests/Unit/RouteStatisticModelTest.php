@@ -89,7 +89,7 @@ class RouteStatisticModelTest extends TestCase
         $model = RouteStatistic::factory()->make();
 
         $this->assertInstanceOf(RouteStatistic::class, $model);
-        $this->assertEquals($model->attributes['parameters'], json_encode($model->parameters));
+        $this->assertEquals($model->getAttributes()['parameters'], json_encode($model->parameters));
     }
 
     private function get_route_parameters(array $parameters): array
