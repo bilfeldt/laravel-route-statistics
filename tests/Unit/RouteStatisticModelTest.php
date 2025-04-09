@@ -85,7 +85,8 @@ class RouteStatisticModelTest extends TestCase
         $this->assertNull($log->parameters);
     }
 
-    public function test_can_create_instance_from_factory(): void {
+    public function test_can_make_instance_from_factory(): void
+    {
         $model = RouteStatistic::factory()->make();
 
         $this->assertInstanceOf(RouteStatistic::class, $model);
