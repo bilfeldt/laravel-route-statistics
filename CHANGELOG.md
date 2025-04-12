@@ -4,7 +4,7 @@ All notable changes to `laravel-route-statistics` will be documented in this fil
 
 ## Changes
 
-### 4.2.1 - 2025-04-09
+### 4.2.1 - 2025-04-12
 
 - Fix json generation in RouteStatisticFactory
 
