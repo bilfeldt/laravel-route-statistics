@@ -85,6 +85,14 @@ class RouteStatisticModelTest extends TestCase
         $this->assertNull($log->parameters);
     }
 
+    public function test_can_make_instance_from_factory(): void
+    {
+        $model = RouteStatistic::factory()->make();
+
+        $this->assertInstanceOf(RouteStatistic::class, $model);
+        $this->assertEquals($model->getAttributes()['parameters'], json_encode($model->parameters));
+    }
+
     private function get_route_parameters(array $parameters): array
     {
         return array_values($parameters);
