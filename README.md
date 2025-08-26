@@ -11,10 +11,10 @@ Log Laravel requests and responses for statistical purposes and optionally aggre
 
 | Version | Laravel              | PHP                     |
 |---------|----------------------|-------------------------|
-| 1.*     | 8.* \| 9.*           | 7.4.* \| 8.0.* \| 8.1.* |
-| 2.*     | 10.*                 | 8.1.* \| 8.2.*          |
-| 3.*     | 11.*                 | 8.1.* \| 8.2.* \| 8.3.* |
-| 4.*     | 10.* \| 11.* \| 12.* | 8.2.* \| 8.3.* \| 8.4.* |
+| 1.*     | 8.*\| 9.*           | 7.4.*\| 8.0.* \| 8.1.* |
+| 2.*     | 10.*                 | 8.1.*\| 8.2.*          |
+| 3.*     | 11.*                 | 8.1.*\| 8.2.* \| 8.3.* |
+| 4.*     | 10.*\| 11.* \| 12.* | 8.2.*\| 8.3.* \| 8.4.* |
 
 ## Description
 
@@ -24,7 +24,6 @@ This package lets you:
 
 - See how much each user uses the application and what part of the application they use
 - See if any unauthenticated users are making a lot of requests to your application
-
 
 ## Installation
 
@@ -42,6 +41,7 @@ php artisan migrate
 ```
 
 You can publish the config file with:
+
 ```bash
 php artisan vendor:publish --provider="Bilfeldt\LaravelRouteStatistics\LaravelRouteStatisticsServiceProvider" --tag="config"
 ```
@@ -54,35 +54,35 @@ There are a few ways to enable logging of route usage:
 
 This will enable site-wide logging and although being the easiest implementation this might not be exactly what you are looking for (consider only logging relevant routes using the [middleware](#enable-via-middleware) approach below)
 
-Simply add `RouteStatisticsMiddleware` as a global middleware in `app/Http/Kernel.php`
+Simply add `RouteStatisticsMiddleware` as a global middleware in `bootstrap/app.php`
 
 ```php
-// app/Http/Kernel.php
-<?php
+// bootstrap/app.php
+ <?php
 
-namespace App\Http;
+use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Configuration\Middleware;
 
-use Illuminate\Foundation\Http\Kernel as HttpKernel;
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+      ...
+    )
+    ->withMiddleware(function (Middleware $middleware) {
 
-class Kernel extends HttpKernel
-{
-    /**
-     * The application's global HTTP middleware stack.
-     *
-     * These middleware are run during every request to your application.
-     *
-     * @var array
-     */
-    protected $middleware = [
-        \Bilfeldt\LaravelRouteStatistics\Http\Middleware\RouteStatisticsMiddleware::class, // <-- Added
-        // \App\Http\Middleware\TrustHosts::class,
-        \App\Http\Middleware\TrustProxies::class,
-        \Fruitcake\Cors\HandleCors::class,
-        \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
-        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \App\Http\Middleware\TrimStrings::class,
-        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-    ];
+        // Place the Route middleware before all global middleware
+        $middleware->use([
+            \Bilfeldt\LaravelRouteStatistics\Http\Middleware\RouteStatisticsMiddleware::class,
+            ...$middleware->getGlobalMiddleware()
+        ]);
+
+    })
+    ->withExceptions(function (Exceptions $exceptions) {
+        ...
+    })
+    ->create();
+
+
 ...
 ```
 
@@ -141,18 +141,20 @@ This package comes with two neat Artisan commands:
 ## How it works
 
 This package works as follows:
+
 1. Tag the request for logging: Can be done using middleware or request helper
 2. (optional) Add any context data which will be used when logging: A common use case is adding relevant route parameters like a `team_id` for example
 3. Log the request: Persist the log record to the database - the following will be logged when using the default logger:
-  - `user_id`: The authenticated user (if any)
-  - `team_id`: The team id associated with the request (if available)
-  - `method`: The HTTP method (`GET/POST/...`)
-  - `route`: The route name (if available) or the route URI (eg `/posts/{post}`)
-  - `parameters`: The route parameters passed (if enabled else `null`)
-  - `status`: The HTTP status (eg `202`)
-  - `ip`: The request ip
-  - `date`: The date of the request as datetime (can be aggregated)
-  - `counter`: Number of requests logged when aggregating records by minute/hour/day/month...
+
+- `user_id`: The authenticated user (if any)
+- `team_id`: The team id associated with the request (if available)
+- `method`: The HTTP method (`GET/POST/...`)
+- `route`: The route name (if available) or the route URI (eg `/posts/{post}`)
+- `parameters`: The route parameters passed (if enabled else `null`)
+- `status`: The HTTP status (eg `202`)
+- `ip`: The request ip
+- `date`: The date of the request as datetime (can be aggregated)
+- `counter`: Number of requests logged when aggregating records by minute/hour/day/month...
 
 ## Testing
 
