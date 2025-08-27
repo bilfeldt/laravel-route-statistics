@@ -71,11 +71,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
 
         // Place the Route middleware before all global middleware
-        $middleware->use([
-            \Bilfeldt\LaravelRouteStatistics\Http\Middleware\RouteStatisticsMiddleware::class,
-            ...$middleware->getGlobalMiddleware()
-        ]);
-
+        $middleware->prepend(\Bilfeldt\LaravelRouteStatistics\Http\Middleware\RouteStatisticsMiddleware::class);
+    
     })
     ->withExceptions(function (Exceptions $exceptions) {
         ...
