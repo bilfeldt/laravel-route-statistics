@@ -4,7 +4,11 @@ All notable changes to `laravel-route-statistics` will be documented in this fil
 
 ## Changes
 
-### 4.3.0 - 2025-03-06
+### 4.4.0 - 2026-06-03
+
+- Add PHP 8.5 support
+
+### 4.3.0 - 2026-03-06
 
 - Add Laravel 13 support
 
